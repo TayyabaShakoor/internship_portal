@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Internship Registration Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🏫 Internship Registration Portal</h1>
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <!-- Registration Form -->
+        <form id="registrationForm" action="php/register.php" method="POST" enctype="multipart/form-data" novalidate>
+            <!-- Student ID -->
+            <div class="form-group">
+                <label for="student_id">Student ID <span class="required">*</span></label>
+                <input type="text" id="student_id" name="student_id" 
+                       pattern="^[A-Z]{2}[0-9]{2}-[A-Z]{3}-[0-9]{3}$"
+                       placeholder="FA21-BCS-001" required>
+                <small class="error-message" id="student_id_error"></small>
+                <small class="hint">Format: XX00-XXX-000 (e.g., FA21-BCS-001)</small>
+            </div>
+
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="full_name">Full Name <span class="required">*</span></label>
+                <input type="text" id="full_name" name="full_name" 
+                       placeholder="John Doe" required>
+                <small class="error-message" id="full_name_error"></small>
+                <small class="hint">Only letters and spaces allowed</small>
+            </div>
+
+            <!-- Email with AJAX Check -->
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" 
+                       placeholder="student@university.edu" required>
+                <small class="error-message" id="email_error"></small>
+                <small class="success-message" id="email_success"></small>
+                <div class="spinner" id="email_spinner"></div>
+                <small class="hint">We'll check availability automatically</small>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password <span class="required">*</span></label>
+                <input type="password" id="password" name="password" required>
+                <small class="error-message" id="password_error"></small>
+                <div class="password-strength">
+                    <div class="strength-bar" id="strength_bar"></div>
+                </div>
+                <ul class="password-requirements" id="password_requirements">
+                    <li id="req_length">❌ Minimum 8 characters</li>
+                    <li id="req_uppercase">❌ At least 1 uppercase letter</li>
+                    <li id="req_lowercase">❌ At least 1 lowercase letter</li>
+                    <li id="req_number">❌ At least 1 number</li>
+                    <li id="req_special">❌ At least 1 special character (!@#$%^&*)</li>
+                </ul>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password <span class="required">*</span></label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                <small class="error-message" id="confirm_password_error"></small>
+            </div>
+
+            <!-- CNIC -->
+            <div class="form-group">
+                <label for="cnic">CNIC <span class="required">*</span></label>
+                <input type="text" id="cnic" name="cnic" 
+                       pattern="^[0-9]{5}-[0-9]{7}-[0-9]{1}$"
+                       placeholder="12345-1234567-1" required>
+                <small class="error-message" id="cnic_error"></small>
+                <small class="hint">Format: 12345-1234567-1</small>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" 
+                       pattern="^03[0-9]{9}$"
+                       placeholder="03123456789" required>
+                <small class="error-message" id="phone_error"></small>
+                <small class="hint">Format: 03XXXXXXXXX (11 digits)</small>
+            </div>
+
+            <!-- CGPA -->
+            <div class="form-group">
+                <label for="cgpa">CGPA <span class="required">*</span></label>
+                <input type="number" id="cgpa" name="cgpa" 
+                       step="0.01" min="0" max="4" 
+                       placeholder="3.45" required>
+                <small class="error-message" id="cgpa_error"></small>
+                <small class="hint">Between 0.00 and 4.00</small>
+            </div>
+
+            <!-- Department -->
+            <div class="form-group">
+                <label for="department">Department <span class="required">*</span></label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Data Science">Data Science</option>
+                </select>
+                <small class="error-message" id="department_error"></small>
+            </div>
+
+            <!-- Resume Upload -->
+            <div class="form-group">
+                <label for="resume">Resume (PDF only) <span class="required">*</span></label>
+                <input type="file" id="resume" name="resume" 
+                       accept=".pdf" required>
+                <small class="error-message" id="resume_error"></small>
+                <small class="hint">Max size: 2MB, Format: PDF only</small>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" disabled>📝 Register for Internship</button>
+        </form>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>✅ Registration Successful!</h2>
+                <p>Your internship application has been submitted successfully.</p>
+                <p>You will receive a confirmation email shortly.</p>
+                <button onclick="document.getElementById('successModal').style.display='none'">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/validation.js"></script>
+</body>
+</html>
